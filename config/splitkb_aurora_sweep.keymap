@@ -61,7 +61,7 @@
         mac_default_layer {
             bindings = <
                 &kp Q &kp W &kp F &kp P &kp B                       &kp J &kp L &kp U &kp Y &kp SEMICOLON
-                &lhhm LCTRL A &lhhm LALT R &lhhm LGUI S &kp LSHFT T &kp G                       &kp M &rhhm RSHFT N &rhhm RGUI E &rhhm RALT I &rhhm RCTRL O
+                &lhhm LCTRL A &lhhm LALT R &lhhm LGUI S &lhhm LSHFT T &kp G                       &kp M &rhhm RSHFT N &rhhm RGUI E &rhhm RALT I &rhhm RCTRL O
                 &kp Z &kp X &kp C &kp D &kp V                       &kp K &kp H  &kp CMMA &kp DOT &kp SLASH
                                 &kp ENTER &sk SPACE            &sk BACKSPACE &to 1
             >;
@@ -88,7 +88,7 @@
         win_default_layer {
             bindings = <
                 &kp Q &kp W &kp F &kp P &kp B                       &kp J &kp L &kp U &kp Y &kp SEMICOLON
-                &lhhm LGUI A &lhhm LALT R &lhhm LCTRL S &kp LSHFT T &kp G                       &kp M &rhhm RSHFT N &rhhm RCTRL E &rhhm RALT I &rhhm RGUI O
+                &lhhm LGUI A &lhhm LALT R &lhhm LCTRL S &lhhm LSHFT T &kp G                       &kp M &rhhm RSHFT N &rhhm RCTRL E &rhhm RALT I &rhhm RGUI O
                 &kp Z &kp X &kp C &kp D &kp V                       &kp K &kp H  &kp CMMA &kp DOT &kp SLASH
                                 &kp ENTER &sk SPACE            &sk BACKSPACE &to 4
             >;
