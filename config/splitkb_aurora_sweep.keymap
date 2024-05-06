@@ -22,14 +22,14 @@
 
     macros {
         bt_mac: bt_mac {
-            compatible = "zmk,behavior-macro";
+            compatible = "zmk,behavior-macro-one-param";
             #binding-cells = <1>;
-            bindings = <&to 0>, <&macro_param_1to1>, <&bt BT_SEL MACRO_PLACEHOLDER>;
+            bindings = <&to 0>, <&macro_param_1to2>, <&bt BT_SEL MACRO_PLACEHOLDER>;
         };
         bt_win: bt_win {
-            compatible = "zmk,behavior-macro";
+            compatible = "zmk,behavior-macro-one-param";
             #binding-cells = <1>;
-            bindings = <&to 3>, <&macro_param_1to1>, <&bt BT_SEL MACRO_PLACEHOLDER>;
+            bindings = <&to 3>, <&macro_param_1to2>, <&bt BT_SEL MACRO_PLACEHOLDER>;
         };
     };
 
