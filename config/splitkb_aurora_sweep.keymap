@@ -63,7 +63,7 @@
                 &kp Q &kp W &kp F &kp P &kp B                       &kp J &kp L &kp U &kp Y &kp SEMICOLON
                 &lhhm LCTRL A &lhhm LALT R &lhhm LGUI S &lhhm LSHFT T &kp G                       &kp M &rhhm RSHFT N &rhhm RGUI E &rhhm RALT I &rhhm RCTRL O
                 &kp Z &kp X &kp C &kp D &kp V                       &kp K &kp H  &kp CMMA &kp DOT &kp SLASH
-                                &kp ENTER &sk SPACE            &sk BACKSPACE &to 1
+                                &kp ENTER &kp SPACE            &kp BACKSPACE &to 1
             >;
         };
 
@@ -72,7 +72,7 @@
                 &kp ESC  &kp C_PP &kp C_PREV  &kp C_NEXT  &kp LS(MINUS)    			    &kp MINUS  &kp N7 &kp N8 &kp N9 &trans
                 &kp TAB  &trans   &kp C_VOL_DN  &kp C_VOL_UP  &kp LS(EQUAL) 			&kp EQUAL  &kp N4 &kp N5 &kp N6 &kp ENTER
                 &trans  &kp AMPS &kp SLASH &kp STAR &kp DOT    			                &kp N0     &kp N1 &kp N2 &kp N3 &trans 
-                            &to 0 &sk LGUI  				&sk RALT  &to 2 
+                            &to 0 &kp LGUI  				&kp RALT  &to 2 
             >;
 		};
 
@@ -90,7 +90,7 @@
                 &kp Q &kp W &kp F &kp P &kp B                       &kp J &kp L &kp U &kp Y &kp SEMICOLON
                 &lhhm LGUI A &lhhm LALT R &lhhm LCTRL S &lhhm LSHFT T &kp G                       &kp M &rhhm RSHFT N &rhhm RCTRL E &rhhm RALT I &rhhm RGUI O
                 &kp Z &kp X &kp C &kp D &kp V                       &kp K &kp H  &kp CMMA &kp DOT &kp SLASH
-                                &kp ENTER &sk SPACE            &sk BACKSPACE &to 4
+                                &kp ENTER &kp SPACE            &kp BACKSPACE &to 4
             >;
         };
 
@@ -99,7 +99,7 @@
                 &kp ESC  &kp C_PP &kp C_PREV  &kp C_NEXT  &kp LS(MINUS)    			    &kp MINUS  &kp N7 &kp N8 &kp N9 &trans
                 &kp TAB  &trans   &kp C_VOL_DN  &kp C_VOL_UP  &kp LS(EQUAL) 			&kp EQUAL  &kp N4 &kp N5 &kp N6 &kp ENTER
                 &trans  &kp AMPS &kp SLASH &kp STAR &kp DOT    			                &kp N0     &kp N1 &kp N2 &kp N3 &trans 
-                            &to 3 &sk LGUI  				&sk RALT  &to 5 
+                            &to 3 &kp LGUI  				&kp RALT  &to 5 
             >;
 		};
 
