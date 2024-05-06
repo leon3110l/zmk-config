@@ -37,7 +37,7 @@
             tap-ms = <0>;
             bindings = <&macro_param_1to2>, <&to 3>,  <&bt BT_SEL MACRO_PLACEHOLDER>;
         };
-    }
+    };
 
     behaviors {
         lhhm: left_positional_hold_tap {
