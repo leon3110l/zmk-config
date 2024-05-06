@@ -21,21 +21,15 @@
     };
 
     macros {
-        bt_mac: bt_macro_mac {
-            label = "bt_macro_mac";
+        bt_mac: bt_mac {
             compatible = "zmk,behavior-macro";
             #binding-cells = <1>;
-            wait-ms = <0>;
-            tap-ms = <0>;
-            bindings = <&macro_param_1to2>, <&to 0>,  <&bt BT_SEL MACRO_PLACEHOLDER>;
+            bindings = <&to 0>, <&macro_param_1to1>, <&bt BT_SEL MACRO_PLACEHOLDER>;
         };
-        bt_win: bt_macro_win {
-            label = "bt_macro_win";
+        bt_win: bt_mac {
             compatible = "zmk,behavior-macro";
             #binding-cells = <1>;
-            wait-ms = <0>;
-            tap-ms = <0>;
-            bindings = <&macro_param_1to2>, <&to 3>,  <&bt BT_SEL MACRO_PLACEHOLDER>;
+            bindings = <&to 3>, <&macro_param_1to1>, <&bt BT_SEL MACRO_PLACEHOLDER>;
         };
     };
 
