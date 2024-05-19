@@ -7,16 +7,19 @@
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/bt.h>
+#include <dt-bindings/zmk/outputs.h>
+
+#define MO_TO(layer) &mo_to layer layer
 
 / {
 
     combos {
         compatible = "zmk,combos";
         combo_del {
-            timeout-ms = <50>;
+            timeout-ms = <150>;
             key-positions = <30 32>;
             bindings = <&kp DEL>;
-            layers = <0>;
+            layers = <0 4>;
         };
     };
 
@@ -29,7 +32,17 @@
         bt_win: bt_win {
             compatible = "zmk,behavior-macro-one-param";
             #binding-cells = <1>;
-            bindings = <&to 3>, <&macro_param_1to2>, <&bt BT_SEL MACRO_PLACEHOLDER>;
+            bindings = <&to 4>, <&macro_param_1to2>, <&bt BT_SEL MACRO_PLACEHOLDER>;
+        };
+        GG: GG {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings
+                = <&macro_press &kp LSHFT>
+                , <&macro_tap &kp ENTER>
+                , <&macro_release &kp LSHFT>
+                , <&kp G &kp G &kp ENTER>
+                ;
         };
     };
 
@@ -53,6 +66,22 @@
             bindings = <&kp>, <&kp>;
             hold-trigger-key-positions = <0 1 2 3 4 10 11 12 13 14 20 21 22 23 24 30 31>;    // <---[[left-hand keys]]
         };
+
+        mo_to: behavior_mo_to {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "hold-preferred";
+            tapping-term-ms = <200>;
+            bindings = <&mo>, <&to>;
+        };
+
+        bspc_del: backspace_delete {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <&kp BACKSPACE>, <&kp DELETE>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
+            keep-mods = <(MOD_RSFT)>;
+        };
     };
 
     keymap {
@@ -63,25 +92,34 @@
                 &kp Q &kp W &kp F &kp P &kp B                       &kp J &kp L &kp U &kp Y &kp SEMICOLON
                 &lhhm LCTRL A &lhhm LALT R &lhhm LGUI S &lhhm LSHFT T &kp G                       &kp M &rhhm RSHFT N &rhhm RGUI E &rhhm RALT I &rhhm RCTRL O
                 &kp Z &kp X &kp C &kp D &kp V                       &kp K &kp H  &kp CMMA &kp DOT &kp SLASH
-                                &kp ENTER &kp SPACE            &kp BACKSPACE &to 1
+                                &kp ENTER &kp SPACE            &bspc_del MO_TO(1)
             >;
         };
 
         mac_num_layer {
             bindings = <
-                &kp ESC  &kp C_PP &kp C_PREV  &kp C_NEXT  &kp LS(MINUS)    			    &kp MINUS  &kp N7 &kp N8 &kp N9 &trans
-                &kp TAB  &trans   &kp C_VOL_DN  &kp C_VOL_UP  &kp LS(EQUAL) 			&kp EQUAL  &kp N4 &kp N5 &kp N6 &kp ENTER
-                &trans  &kp AMPS &kp SLASH &kp STAR &kp DOT    			                &kp N0     &kp N1 &kp N2 &kp N3 &trans 
-                            &to 0 &kp LGUI  				&kp RALT  &to 2 
+                &kp N1 &kp N2 &kp N3 &kp N4 &kp N5              &kp N6 &kp N7 &kp N8 &kp N9 &kp N0
+                &lhhm LCTRL LT &lhhm LALT LBKT &lhhm LGUI LS(LBKT) &lhhm LSHFT LS(N9) &kp SQT                       &kp DQT &rhhm RSHFT LS(N0) &rhhm RGUI LS(RBKT) &rhhm RALT RBKT &rhhm RCTRL GT
+                &kp LS(N1) &kp LS(N2) &kp LS(N3) &kp LS(N4) &kp LS(N5)          &kp LS(N6) &kp LS(N7) &kp LS(N8) &kp GRAVE &kp BSLH
+                &to 0 &kp SPACE                             &bspc_del &to 2
+            >;
+		};
+
+        mac_fkeys {
+            bindings = <
+                &kp ESC &none &kp TAB &none &kp CAPSLOCK                     &kp ESC &kp HOME &kp PAGE_DOWN &kp PAGE_UP &kp END
+                &kp LCTRL &kp LALT &kp LGUI &kp LSHFT &kp F6                 &kp F7 &kp LEFT &kp DOWN &kp UP &kp RIGHT
+                &kp F1 &kp F2 &kp F3 &kp F4 &kp F5                           &kp F8 &kp F9 &kp F10 &kp F11 &kp F12
+                &to 0 &kp SPACE                             &bspc_del &to 3
             >;
 		};
 
         mac_bt {
             bindings = <
-                &to 0  &trans &trans &trans &trans       &bt BT_CLR &trans &trans &trans &trans 
-                &to 3  &trans &trans &trans &trans       &trans &bt_win 4 &trans &trans &trans 
-                &trans  &trans &trans &trans &trans       &bt_win 0 &bt_mac 1 &bt_win 2 &bt_win 3 &trans
-                &to 0 &trans  					                            &trans &to 1 
+                &kp Z  &kp T &kp N3 &kp N4 &kp B       &bt_win 0 &bt_mac 1 &bt_win 2 &bt_win 3 &bt_win 4
+                &kp Q  &kp W &kp E &kp R &kp G       &bt BT_CLR &kp C_PP &kp C_PREV &kp C_NEXT &kp C_MUTE
+                &kp TAB  &kp ESC &kp Y &kp V &kp U       &GG &to 4 &kp C_VOL_DN &kp C_VOL_UP &out OUT_TOG
+                &kp D &kp F  					                            &to 0 &to 0
             >;
 		};
 
@@ -90,25 +128,34 @@
                 &kp Q &kp W &kp F &kp P &kp B                       &kp J &kp L &kp U &kp Y &kp SEMICOLON
                 &lhhm LGUI A &lhhm LALT R &lhhm LCTRL S &lhhm LSHFT T &kp G                       &kp M &rhhm RSHFT N &rhhm RCTRL E &rhhm RALT I &rhhm RGUI O
                 &kp Z &kp X &kp C &kp D &kp V                       &kp K &kp H  &kp CMMA &kp DOT &kp SLASH
-                                &kp ENTER &kp SPACE            &kp BACKSPACE &to 4
+                                &kp ENTER &kp SPACE            &bspc_del MO_TO(5)
             >;
         };
 
         win_num_layer {
             bindings = <
-                &kp ESC  &kp C_PP &kp C_PREV  &kp C_NEXT  &kp LS(MINUS)    			    &kp MINUS  &kp N7 &kp N8 &kp N9 &trans
-                &kp TAB  &trans   &kp C_VOL_DN  &kp C_VOL_UP  &kp LS(EQUAL) 			&kp EQUAL  &kp N4 &kp N5 &kp N6 &kp ENTER
-                &trans  &kp AMPS &kp SLASH &kp STAR &kp DOT    			                &kp N0     &kp N1 &kp N2 &kp N3 &trans 
-                            &to 3 &kp LGUI  				&kp RALT  &to 5 
+                &kp N1 &kp N2 &kp N3 &kp N4 &kp N5              &kp N6 &kp N7 &kp N8 &kp N9 &kp N0
+                &lhhm LGUI LT &lhhm LALT LBKT &lhhm LCTRL LS(LBKT) &lhhm LSHFT LS(N9) &kp SQT                       &kp DQT &rhhm RSHFT LS(N0) &rhhm RCTRL LS(RBKT) &rhhm RALT RBKT &rhhm RGUI GT
+                &kp LS(N1) &kp LS(N2) &kp LS(N3) &kp LS(N4) &kp LS(N5)          &kp LS(N6) &kp LS(N7) &kp LS(N8) &kp GRAVE &kp BSLH
+                &to 4 &kp SPACE                             &bspc_del &to 6
+            >;
+		};
+
+        win_fkeys {
+            bindings = <
+                &kp ESC &none &kp TAB &none &kp CAPSLOCK                     &kp ESC &kp HOME &kp PAGE_DOWN &kp PAGE_UP &kp END
+                &kp LGUI &kp LALT &kp LCTRL &kp LSHFT &kp F6                 &kp F7 &kp LEFT &kp DOWN &kp UP &kp RIGHT
+                &kp F1 &kp F2 &kp F3 &kp F4 &kp F5                           &kp F8 &kp F9 &kp F10 &kp F11 &kp F12
+                &to 4 &kp SPACE                             &bspc_del &to 7
             >;
 		};
 
         win_bt {
             bindings = <
-                &to 0  &trans &trans &trans &trans       &bt BT_CLR &trans &trans &trans &trans 
-                &to 3  &trans &trans &trans &trans       &trans &bt_win 4 &trans &trans &trans 
-                &trans  &trans &trans &trans &trans       &bt_win 0 &bt_mac 1 &bt_win 2 &bt_win 3 &trans
-                &to 3 &trans  					                            &trans &to 4 
+                &kp Z  &kp T &kp N3 &kp N4 &kp B       &bt_win 0 &bt_mac 1 &bt_win 2 &bt_win 3 &bt_win 4
+                &kp Q  &kp W &kp E &kp R &kp G       &bt BT_CLR &kp C_PP &kp C_PREV &kp C_NEXT &kp C_MUTE
+                &kp TAB  &kp ESC &kp Y &kp V &kp U       &GG &to 0 &kp C_VOL_DN &kp C_VOL_UP &out OUT_TOG
+                &kp D &kp F  					                            &to 4 &to 4
             >;
 		};
 
