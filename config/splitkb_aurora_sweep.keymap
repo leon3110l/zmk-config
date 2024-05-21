@@ -91,7 +91,7 @@
         };
 
 
-        win_td_mo_to: win_bt_td_mo_to {
+        win_td_mo_to: win_td_mo_to {
             compatible = "zmk,behavior-tap-dance";
             #binding-cells = <0>;
             tapping-term-ms = <200>;
