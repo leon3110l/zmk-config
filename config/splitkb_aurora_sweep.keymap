@@ -10,6 +10,7 @@
 #include <dt-bindings/zmk/outputs.h>
 
 #define MO_TO(layer) &mo_to layer layer
+#define AS(keycode) &as LS(keycode) keycode
 
 / {
 
@@ -17,7 +18,7 @@
         compatible = "zmk,combos";
         combo_del {
             timeout-ms = <150>;
-            key-positions = <30 32>;
+            key-positions = <31 32>;
             bindings = <&kp DEL>;
             layers = <0 4>;
         };
@@ -34,14 +35,13 @@
             #binding-cells = <1>;
             bindings = <&to 4>, <&macro_param_1to2>, <&bt BT_SEL MACRO_PLACEHOLDER>;
         };
-        GG: GG {
+        alttab: alttab {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings
-                = <&macro_press &kp LSHFT>
-                , <&macro_tap &kp ENTER>
-                , <&macro_release &kp LSHFT>
-                , <&kp G &kp G &kp ENTER>
+                = <&macro_press &kp LSHFT &kp LALT>
+                , <&macro_pause_for_release>
+                , <&macro_release &kp LSHFT &kp LALT>
                 ;
         };
     };
@@ -80,7 +80,31 @@
             #binding-cells = <0>;
             bindings = <&kp BACKSPACE>, <&kp DELETE>;
             mods = <(MOD_LSFT|MOD_RSFT)>;
-            keep-mods = <(MOD_RSFT)>;
+            keep-mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
+
+        mac_td_mo_to: mac_td_mo_to {
+            compatible = "zmk,behavior-tap-dance";
+            #binding-cells = <0>;
+            tapping-term-ms = <200>;
+            bindings = <&mo_to 1 1>, <&mo_to 2 2>;
+        };
+
+
+        win_td_mo_to: win_bt_td_mo_to {
+            compatible = "zmk,behavior-tap-dance";
+            #binding-cells = <0>;
+            tapping-term-ms = <200>;
+            bindings = <&mo_to 4 4>, <&mo_to 5 5>;
+        };
+
+        as: auto_shift {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            tapping_term_ms = <135>;
+            quick_tap_ms = <0>;
+            flavor = "tap-preferred";
+            bindings = <&kp>, <&kp>;
         };
     };
 
@@ -92,16 +116,16 @@
                 &kp Q &kp W &kp F &kp P &kp B                       &kp J &kp L &kp U &kp Y &kp SEMICOLON
                 &lhhm LCTRL A &lhhm LALT R &lhhm LGUI S &lhhm LSHFT T &kp G                       &kp M &rhhm RSHFT N &rhhm RGUI E &rhhm RALT I &rhhm RCTRL O
                 &kp Z &kp X &kp C &kp D &kp V                       &kp K &kp H  &kp CMMA &kp DOT &kp SLASH
-                                &kp ENTER &kp SPACE            &bspc_del MO_TO(1)
+                                &kp ENTER &kp SPACE            &bspc_del &mac_td_mo_to
             >;
         };
 
         mac_num_layer {
             bindings = <
-                &kp N1 &kp N2 &kp N3 &kp N4 &kp N5              &kp N6 &kp N7 &kp N8 &kp N9 &kp N0
+                AS(N1) AS(N2) AS(N3) AS(N4) AS(N5)              AS(N6) AS(N7) AS(N8) AS(N9) AS(N0)
                 &lhhm LCTRL LT &lhhm LALT LBKT &lhhm LGUI LS(LBKT) &lhhm LSHFT LS(N9) &kp SQT                       &kp DQT &rhhm RSHFT LS(N0) &rhhm RGUI LS(RBKT) &rhhm RALT RBKT &rhhm RCTRL GT
-                &kp LS(N1) &kp LS(N2) &kp LS(N3) &kp LS(N4) &kp LS(N5)          &kp LS(N6) &kp LS(N7) &kp LS(N8) &kp GRAVE &kp BSLH
-                &to 0 &kp SPACE                             &bspc_del &to 2
+                &kp TAB &kp ESC &kp BSLH &kp MINUS &kp GRAVE          &kp TILDE &kp EQUAL &kp CMMA &kp DOT &kp SLASH
+                &to 0 &kp SPACE                             &bspc_del MO_TO(2)
             >;
 		};
 
@@ -110,15 +134,15 @@
                 &kp ESC &none &kp TAB &none &kp CAPSLOCK                     &kp ESC &kp HOME &kp PAGE_DOWN &kp PAGE_UP &kp END
                 &kp LCTRL &kp LALT &kp LGUI &kp LSHFT &kp F6                 &kp F7 &kp LEFT &kp DOWN &kp UP &kp RIGHT
                 &kp F1 &kp F2 &kp F3 &kp F4 &kp F5                           &kp F8 &kp F9 &kp F10 &kp F11 &kp F12
-                &to 0 &kp SPACE                             &bspc_del &to 3
+                &to 0 &kp SPACE                             &bspc_del MO_TO(3)
             >;
 		};
 
         mac_bt {
             bindings = <
-                &kp Z  &kp T &kp N3 &kp N4 &kp B       &bt_win 0 &bt_mac 1 &bt_win 2 &bt_win 3 &bt_win 4
+                &kp Z  &kp N2 &kp N3 &kp N4 &kp B       &bt_win 0 &bt_mac 1 &bt_win 2 &bt_win 3 &bt_win 4
                 &kp Q  &kp W &kp E &kp R &kp G       &bt BT_CLR &kp C_PP &kp C_PREV &kp C_NEXT &kp C_MUTE
-                &kp TAB  &kp ESC &kp Y &kp V &kp U       &GG &to 4 &kp C_VOL_DN &kp C_VOL_UP &out OUT_TOG
+                &kp TAB  &kp ESC &kp Y &kp V &kp U       &alttab &to 4 &kp C_VOL_DN &kp C_VOL_UP &out OUT_TOG
                 &kp D &kp F  					                            &to 0 &to 0
             >;
 		};
@@ -128,16 +152,16 @@
                 &kp Q &kp W &kp F &kp P &kp B                       &kp J &kp L &kp U &kp Y &kp SEMICOLON
                 &lhhm LGUI A &lhhm LALT R &lhhm LCTRL S &lhhm LSHFT T &kp G                       &kp M &rhhm RSHFT N &rhhm RCTRL E &rhhm RALT I &rhhm RGUI O
                 &kp Z &kp X &kp C &kp D &kp V                       &kp K &kp H  &kp CMMA &kp DOT &kp SLASH
-                                &kp ENTER &kp SPACE            &bspc_del MO_TO(5)
+                                &kp ENTER &kp SPACE            &bspc_del &win_td_mo_to
             >;
         };
 
         win_num_layer {
             bindings = <
-                &kp N1 &kp N2 &kp N3 &kp N4 &kp N5              &kp N6 &kp N7 &kp N8 &kp N9 &kp N0
-                &lhhm LGUI LT &lhhm LALT LBKT &lhhm LCTRL LS(LBKT) &lhhm LSHFT LS(N9) &kp SQT                       &kp DQT &rhhm RSHFT LS(N0) &rhhm RCTRL LS(RBKT) &rhhm RALT RBKT &rhhm RGUI GT
-                &kp LS(N1) &kp LS(N2) &kp LS(N3) &kp LS(N4) &kp LS(N5)          &kp LS(N6) &kp LS(N7) &kp LS(N8) &kp GRAVE &kp BSLH
-                &to 4 &kp SPACE                             &bspc_del &to 6
+                AS(N1) AS(N2) AS(N3) AS(N4) AS(N5)              AS(N6) AS(N7) AS(N8) AS(N9) AS(N0)
+                &lhhm LCTRL LT &lhhm LALT LBKT &lhhm LGUI LS(LBKT) &lhhm LSHFT LS(N9) &kp SQT                       &kp DQT &rhhm RSHFT LS(N0) &rhhm RGUI LS(RBKT) &rhhm RALT RBKT &rhhm RCTRL GT
+                &kp TAB &kp ESC &kp BSLH &kp MINUS &kp GRAVE          &kp TILDE &kp EQUAL &kp CMMA &kp DOT &kp SLASH
+                &to 4 &kp SPACE                             &bspc_del MO_TO(6) 
             >;
 		};
 
@@ -146,15 +170,15 @@
                 &kp ESC &none &kp TAB &none &kp CAPSLOCK                     &kp ESC &kp HOME &kp PAGE_DOWN &kp PAGE_UP &kp END
                 &kp LGUI &kp LALT &kp LCTRL &kp LSHFT &kp F6                 &kp F7 &kp LEFT &kp DOWN &kp UP &kp RIGHT
                 &kp F1 &kp F2 &kp F3 &kp F4 &kp F5                           &kp F8 &kp F9 &kp F10 &kp F11 &kp F12
-                &to 4 &kp SPACE                             &bspc_del &to 7
+                &to 4 &kp SPACE                             &bspc_del MO_TO(7)
             >;
 		};
 
         win_bt {
             bindings = <
-                &kp Z  &kp T &kp N3 &kp N4 &kp B       &bt_win 0 &bt_mac 1 &bt_win 2 &bt_win 3 &bt_win 4
+                &kp Z  &kp N2 &kp N3 &kp N4 &kp B       &bt_win 0 &bt_mac 1 &bt_win 2 &bt_win 3 &bt_win 4
                 &kp Q  &kp W &kp E &kp R &kp G       &bt BT_CLR &kp C_PP &kp C_PREV &kp C_NEXT &kp C_MUTE
-                &kp TAB  &kp ESC &kp Y &kp V &kp U       &GG &to 0 &kp C_VOL_DN &kp C_VOL_UP &out OUT_TOG
+                &kp TAB  &kp ESC &kp Y &kp V &kp U       &alttab &to 0 &kp C_VOL_DN &kp C_VOL_UP &out OUT_TOG
                 &kp D &kp F  					                            &to 4 &to 4
             >;
 		};
