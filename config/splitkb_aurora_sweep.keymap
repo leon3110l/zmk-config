@@ -95,7 +95,7 @@
             compatible = "zmk,behavior-tap-dance";
             #binding-cells = <0>;
             tapping-term-ms = <200>;
-            bindings = <&mo_to 4 4>, <&mo_to 5 5>;
+            bindings = <&mo_to 5 5>, <&mo_to 6 6>;
         };
 
         as: auto_shift {
