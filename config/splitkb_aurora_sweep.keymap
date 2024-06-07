@@ -12,6 +12,10 @@
 #define MO_TO(layer) &mo_to layer layer
 #define AS(keycode) &as LS(keycode) keycode
 
+&caps_word {
+    continue-list = <UNDERSCORE MINUS>;
+};
+
 / {
 
     combos {
@@ -44,6 +48,13 @@
                 , <&macro_release &kp LALT &kp TAB>
                 ;
         };
+        dot_spc: dot_spc {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <0>;
+            tap-ms = <5>;
+            bindings = <&kp DOT &kp SPACE &sk LSHIFT>;
+        }
     };
 
     behaviors {
@@ -105,11 +116,35 @@
         as: auto_shift {
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
-            tapping_term_ms = <135>;
+            tapping_term_ms = <200>;
             quick_tap_ms = <0>;
             flavor = "tap-preferred";
             bindings = <&kp>, <&kp>;
         };
+        kp_spc: kp_spc {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            tapping_term_ms = <200>;
+            quick_tap_ms = <175>;
+            flavor = "balanced";
+            bindings = <&kp>, <&spc_morph>;
+        };
+        spc_morph: spc_morph {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <&kp SPACE>, <&dot_spc>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
+            keep-mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
+        smart_shft: smart_shft {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <&sk LSHIFT>, <&caps_word>;
+            mods = <(MOD_LSFT)>;
+        };
+
+
+
     };
 
     keymap {
@@ -120,7 +155,7 @@
                 &kp Q &kp W &kp F &kp P &kp B                       &kp J &kp L &kp U &kp Y &kp SEMICOLON
                 &lhhm LCTRL A &lhhm LALT R &lhhm LGUI S &lhhm LSHFT T &kp G                       &kp M &rhhm RSHFT N &rhhm RGUI E &rhhm RALT I &rhhm RCTRL O
                 &kp Z &kp X &kp C &kp D &kp V                       &kp K &kp H  &kp CMMA &kp DOT &kp SLASH
-                                &kp ENTER &kp SPACE            &bspc_del &mac_td_mo_to
+                                &smart_shft &kp_spc ENTER 0           &bspc_del &mac_td_mo_to
             >;
         };
 
@@ -129,7 +164,7 @@
                 AS(N1) AS(N2) AS(N3) AS(N4) AS(N5)              AS(N6) AS(N7) AS(N8) AS(N9) AS(N0)
                 &lhhm LCTRL LT &lhhm LALT LBKT &lhhm LGUI LS(LBKT) &lhhm LSHFT LS(N9) &kp SQT                       &kp DQT &rhhm RSHFT LS(N0) &rhhm RGUI LS(RBKT) &rhhm RALT RBKT &rhhm RCTRL GT
                 &kp TAB &kp ESC &kp BSLH &kp MINUS &kp GRAVE          &kp TILDE &kp EQUAL &kp CMMA &kp DOT &kp SLASH
-                &to 0 &kp SPACE                             &bspc_del MO_TO(2)
+                &to 0 &kp_spc ENTER 0                             &bspc_del MO_TO(2)
             >;
 		};
 
@@ -156,7 +191,7 @@
                 &kp Q &kp W &kp F &kp P &kp B                       &kp J &kp L &kp U &kp Y &kp SEMICOLON
                 &lhhm LGUI A &lhhm LALT R &lhhm LCTRL S &lhhm LSHFT T &kp G                       &kp M &rhhm RSHFT N &rhhm RCTRL E &rhhm RALT I &rhhm RGUI O
                 &kp Z &kp X &kp C &kp D &kp V                       &kp K &kp H  &kp CMMA &kp DOT &kp SLASH
-                                &kp ENTER &kp SPACE            &bspc_del &win_td_mo_to
+                                &smart_shft &kp_spc ENTER 0            &bspc_del &win_td_mo_to
             >;
         };
 
@@ -165,7 +200,7 @@
                 AS(N1) AS(N2) AS(N3) AS(N4) AS(N5)              AS(N6) AS(N7) AS(N8) AS(N9) AS(N0)
                 &lhhm LCTRL LT &lhhm LALT LBKT &lhhm LGUI LS(LBKT) &lhhm LSHFT LS(N9) &kp SQT                       &kp DQT &rhhm RSHFT LS(N0) &rhhm RGUI LS(RBKT) &rhhm RALT RBKT &rhhm RCTRL GT
                 &kp TAB &kp ESC &kp BSLH &kp MINUS &kp GRAVE          &kp TILDE &kp EQUAL &kp CMMA &kp DOT &kp SLASH
-                &to 4 &kp SPACE                             &bspc_del MO_TO(6) 
+                &to 4 &kp_spc ENTER 0                             &bspc_del MO_TO(6) 
             >;
 		};
 
