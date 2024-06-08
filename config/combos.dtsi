@@ -1,0 +1,30 @@
+/*                KEY POSITIONS
+
+  ╭─────────────────────╮ ╭─────────────────────╮
+  │ LT4 LT3 LT2 LT1 LT0 │ │ RT0 RT1 RT2 RT3 RT4 │
+  │ LM4 LM3 LM2 LM1 LM0 │ │ RM0 RM1 RM2 RM3 RM4 │
+  │ LB4 LB3 LB2 LB1 LB0 │ │ RB0 RB1 RB2 RB3 RB4 │
+  ╰───────╮ LH2 LH1 LH0 │ │ RH0 RH1 RH2 ╭───────╯
+          ╰─────────────╯ ╰─────────────╯ */
+
+#define COMBO_TERM_FAST 18
+#define COMBO_TERM_SLOW 30
+
+#define COMBO_IDLE_FAST 150
+#define COMBO_IDLE_SLOW 50
+
+/* Horizontal combos - left hand */
+ZMK_COMBO(esc,   &kp ESC,       LT3 LT2,     0 1 4 5, COMBO_TERM_FAST, COMBO_IDLE_FAST)
+ZMK_COMBO(ret,   &kp TAB,       LT2 LT1,     0 1 4 5, COMBO_TERM_FAST, COMBO_IDLE_FAST)
+
+ZMK_COMBO(cut_mac,   &kp LG(X),     LB3 LB1,     0 1, COMBO_TERM_FAST, COMBO_IDLE_FAST)
+ZMK_COMBO(copy_mac,  &kp LG(C),     LB3 LB2,     0 1, COMBO_TERM_FAST, COMBO_IDLE_FAST)
+ZMK_COMBO(paste_mac, &kp LG(P),     LB2 LB1,     0 1, COMBO_TERM_FAST, COMBO_IDLE_FAST)
+
+ZMK_COMBO(cut_win,   &kp LC(X),     LB3 LB1,     4 5, COMBO_TERM_FAST, COMBO_IDLE_FAST)
+ZMK_COMBO(copy_win,  &kp LC(INS),   LB3 LB2,     4 5, COMBO_TERM_FAST, COMBO_IDLE_FAST)
+ZMK_COMBO(paste_win, &kp LS(INS),   LB2 LB1,     4 5, COMBO_TERM_FAST, COMBO_IDLE_FAST)
+
+/* Horizontal combos - right hand */
+ZMK_COMBO(bspc,  &kp BSPC,      RT1 RT2,     0 1 4 5, COMBO_TERM_FAST, COMBO_IDLE_FAST)
+ZMK_COMBO(del,   &kp DEL,       RT2 RT3,     0 1 4 5, COMBO_TERM_FAST, COMBO_IDLE_FAST)
