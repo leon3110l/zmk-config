@@ -27,7 +27,7 @@
             timeout-ms = <150>;
             key-positions = <31 32>;
             bindings = <&kp DEL>;
-            layers = <0 4>;
+            layers = <0 1 2>;
         };
     };
 
@@ -138,7 +138,7 @@
                 AS(N1) AS(N2) AS(N3) AS(N4) AS(N5)              AS(N6) AS(N7) AS(N8) AS(N9) AS(N0)
                 &lhhm LCTRL LT &lhhm LALT LBKT &lhhm LGUI LS(LBKT) &lhhm LSHFT LS(N9) &kp SQT                       &kp DQT &rhhm RSHFT LS(N0) &rhhm RGUI LS(RBKT) &rhhm RALT RBKT &rhhm RCTRL GT
                 &kp TAB &kp ESC &kp BSLH &kp MINUS &kp GRAVE          &kp TILDE &kp EQUAL &kp CMMA &kp DOT &kp SLASH
-                &to 4 &kp_spc ENTER 0                             &bspc_del MO_TO(2) 
+                &to 0 &kp_spc ENTER 0                             &bspc_del MO_TO(2) 
             >;
         };
 
@@ -147,7 +147,7 @@
                 &kp ESC &none &kp TAB &none &kp CAPSLOCK                     &kp ESC &kp HOME &kp PAGE_DOWN &kp PAGE_UP &kp END
                 &sk LGUI &sk LALT &sk LCTRL &sk LSHFT &kp F6                 &kp F7 &kp LEFT &kp DOWN &kp UP &kp RIGHT
                 &kp F1 &kp F2 &kp F3 &kp F4 &kp F5                           &kp F8 &kp F9 &kp F10 &kp F11 &kp F12
-                &to 4 &kp_spc ENTER 0                             &bspc_del MO_TO(3)
+                &to 0 &kp_spc ENTER 0                             &bspc_del &none
             >;
         };
 
