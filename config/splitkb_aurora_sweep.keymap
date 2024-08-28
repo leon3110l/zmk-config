@@ -104,7 +104,7 @@
             #binding-cells = <2>;
             tapping_term_ms = <200>;
             quick_tap_ms = <175>;
-            flavor = "balanced";
+            flavor = "balanced"
             bindings = <&kp>, <&spc_morph>;
         };
         spc_morph: spc_morph {
@@ -129,7 +129,7 @@
                 &kp Q &kp W &kp F &kp P &kp B                       &kp J &kp L &kp U &kp Y &kp SEMICOLON
                 &lhhm LGUI A &lhhm LALT R &lhhm LCTRL S &lhhm LSHFT T &kp G                       &kp M &rhhm RSHFT N &rhhm RCTRL E &rhhm RALT I &rhhm RGUI O
                 &kp Z &kp X &kp C &kp D &kp V                       &kp K &kp H  &kp CMMA &kp DOT &kp SLASH
-                                &smart_shft &kp_spc ENTER 0            &bspc_del MO_TO(1)
+                                &smart_shft &spc_morph            &bspc_del MO_TO(1)
             >;
         };
 
@@ -137,8 +137,8 @@
             bindings = <
                 AS(N1) AS(N2) AS(N3) AS(N4) AS(N5)              AS(N6) AS(N7) AS(N8) AS(N9) AS(N0)
                 &lhhm LCTRL LT &lhhm LALT LBKT &lhhm LGUI LS(LBKT) &lhhm LSHFT LS(N9) &kp SQT                       &kp DQT &rhhm RSHFT LS(N0) &rhhm RGUI LS(RBKT) &rhhm RALT RBKT &rhhm RCTRL GT
-                &kp TAB &kp ESC &kp BSLH &kp MINUS &kp GRAVE          &kp TILDE &kp EQUAL &kp CMMA &kp DOT &kp SLASH
-                &to 0 &kp_spc ENTER 0                             &bspc_del MO_TO(2) 
+                &kp TAB &kp ESC AS(BSLH) AS(MINUS) AS(GRAVE)          AS(TILDE) AS(EQUAL) AS(CMMA) AS(DOT) AS(SLASH)
+                &to 0 &spc_morph                             &bspc_del MO_TO(2) 
             >;
         };
 
@@ -147,7 +147,7 @@
                 &kp ESC &none &kp TAB &none &kp CAPSLOCK                     &kp ESC &kp HOME &kp PAGE_DOWN &kp PAGE_UP &kp END
                 &sk LGUI &sk LALT &sk LCTRL &sk LSHFT &kp F6                 &kp F7 &kp LEFT &kp DOWN &kp UP &kp RIGHT
                 &kp F1 &kp F2 &kp F3 &kp F4 &kp F5                           &kp F8 &kp F9 &kp F10 &kp F11 &kp F12
-                &to 0 &kp_spc ENTER 0                             &bspc_del &none
+                &to 0 &spc_morph                             &bspc_del &none
             >;
         };
 

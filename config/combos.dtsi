@@ -22,7 +22,7 @@ ZMK_COMBO(copy,  &kp LC(C),   LB3 LB2,     0 1 2, COMBO_TERM_FAST, COMBO_IDLE_FA
 ZMK_COMBO(paste, &kp LC(V),   LB2 LB1,     0 1 2, COMBO_TERM_FAST, COMBO_IDLE_FAST)
 
 /* Horizontal combos - right hand */
-ZMK_COMBO(bspc,  &kp BSPC,      RT1 RT2,     0 1 2, COMBO_TERM_FAST, COMBO_IDLE_FAST)
+ZMK_COMBO(bspc,  &bspc_del,      RT1 RT2,     0 1 2, COMBO_TERM_FAST, COMBO_IDLE_FAST)
 ZMK_COMBO(entr,  &kp ENTER,     RT2 RT3,     0 1 2, COMBO_TERM_FAST, COMBO_IDLE_FAST)
 
 ZMK_COMBO(tobtlayer, &to 3,	LH1 RH1,     2, COMBO_TERM_FAST, COMBO_IDLE_FAST)
