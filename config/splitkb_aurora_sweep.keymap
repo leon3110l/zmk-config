@@ -104,7 +104,7 @@
             #binding-cells = <2>;
             tapping_term_ms = <200>;
             quick_tap_ms = <175>;
-            flavor = "balanced"
+            flavor = "balanced";
             bindings = <&kp>, <&spc_morph>;
         };
         spc_morph: spc_morph {
