@@ -13,10 +13,15 @@
 #include "combos.dtsi"
 
 #define MO_TO(layer) &mo_to layer layer
+#define SHFT_TO(layer) &kp_to LSHFT layer
 #define AS(keycode) &as LS(keycode) keycode
 
 &caps_word {
     continue-list = <UNDERSCORE MINUS BACKSPACE DEL>;
+};
+
+&sk {
+    quick-release;
 };
 
 / {
@@ -51,6 +56,7 @@
     };
 
     behaviors {
+
         lhhm: left_positional_hold_tap {
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
@@ -83,6 +89,14 @@
             bindings = <&mo>, <&to>;
         };
 
+        kp_to: behavior_kp_to {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "hold-preferred";
+            tapping-term-ms = <200>;
+            bindings = <&kp>, <&to>;
+        };
+
         bspc_del: backspace_delete {
             compatible = "zmk,behavior-mod-morph";
             #binding-cells = <0>;
@@ -99,6 +113,7 @@
             flavor = "tap-preferred";
             bindings = <&kp>, <&kp>;
         };
+
         kp_spc: kp_spc {
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
@@ -107,18 +122,21 @@
             flavor = "balanced";
             bindings = <&kp>, <&spc_morph>;
         };
+
         spc_morph: spc_morph {
             compatible = "zmk,behavior-mod-morph";
             #binding-cells = <0>;
             bindings = <&kp SPACE>, <&dot_spc>;
             mods = <(MOD_LSFT|MOD_RSFT)>;
         };
+
         smart_shft: smart_shft {
             compatible = "zmk,behavior-mod-morph";
             #binding-cells = <0>;
             bindings = <&sk LSHIFT>, <&caps_word>;
             mods = <(MOD_LSFT)>;
         };
+
     };
 
     keymap {
@@ -138,7 +156,7 @@
                 AS(N1) AS(N2) AS(N3) AS(N4) AS(N5)              AS(N6) AS(N7) AS(N8) AS(N9) AS(N0)
                 &lhhm LCTRL LT &lhhm LALT LBKT &lhhm LGUI LS(LBKT) &lhhm LSHFT LS(N9) &kp SQT                       &kp DQT &rhhm RSHFT LS(N0) &rhhm RGUI LS(RBKT) &rhhm RALT RBKT &rhhm RCTRL GT
                 &kp TAB &kp ESC AS(BSLH) AS(MINUS) AS(GRAVE)          AS(TILDE) AS(EQUAL) AS(CMMA) AS(DOT) AS(SLASH)
-                &to 0 &spc_morph                             &bspc_del MO_TO(2) 
+                SHFT_TO(0)  &spc_morph                             &bspc_del MO_TO(2) 
             >;
         };
 
@@ -147,7 +165,7 @@
                 &kp ESC &none &kp TAB &none &kp CAPSLOCK                     &kp ESC &kp HOME &kp PAGE_DOWN &kp PAGE_UP &kp END
                 &sk LGUI &sk LALT &sk LCTRL &sk LSHFT &kp F6                 &kp F7 &kp LEFT &kp DOWN &kp UP &kp RIGHT
                 &kp F1 &kp F2 &kp F3 &kp F4 &kp F5                           &kp F8 &kp F9 &kp F10 &kp F11 &kp F12
-                &to 0 &spc_morph                             &bspc_del &none
+                SHFT_TO(0) &spc_morph                             &bspc_del &none
             >;
         };
 
